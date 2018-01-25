@@ -9,20 +9,20 @@ import java.time.Duration;
 
 public class PomodoroTimer {
 
-    final int DEFAULT_POMODORO_MINS = 25;
     private Timeline mTimer;
     private Duration mDuration;
     private SimpleStringProperty mCurrentTime;
 
     public PomodoroTimer(){
 
+        final int DEFAULT_POMODORO_MINS = 25;
         mDuration = Duration.ofMinutes(DEFAULT_POMODORO_MINS);
         mTimer = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), event -> updateTimerProperty()));
         mTimer.setCycleCount(Timeline.INDEFINITE);
         mCurrentTime = new SimpleStringProperty("00:00:00");
     }
 
-    public void updateTimerProperty(){
+    private void updateTimerProperty(){
         if(mDuration.toSeconds() > 0) {
             mDuration = mDuration.minusSeconds(1);
             mCurrentTime.setValue(PomodoroUtil.ConvertDurationToTimeString(mDuration));

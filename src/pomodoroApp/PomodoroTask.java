@@ -31,4 +31,7 @@ public class PomodoroTask {
         this.mTaskName.set(mTaskName);
     }
 
+    public SimpleStringProperty mTaskNameProperty() {
+        return mTaskName;
+    }
 }

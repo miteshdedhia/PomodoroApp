@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="166.0" prefWidth="206.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.TaskEditController">
+<AnchorPane fx:id="mContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="166.0" prefWidth="206.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.TaskEditController">
    <children>
-      <Label fx:id="mTaskName" layoutX="13.0" layoutY="14.0" text="Task Name" />
+      <Label fx:id="mTaskNameLbl" layoutX="13.0" layoutY="14.0" text="Task Name" />
       <TextField fx:id="mTaskNameTextBox" layoutX="14.0" layoutY="35.0" />
       <Label fx:id="mTimeLbl" layoutX="15.0" layoutY="65.0" text="Time" />
       <TextField fx:id="mTimeHrTxtBox" layoutX="15.0" layoutY="85.0" prefHeight="25.0" prefWidth="28.0" />
@@ -15,7 +15,7 @@
       <TextField fx:id="mTimeSecTxtBox" layoutX="111.0" layoutY="85.0" prefHeight="25.0" prefWidth="28.0" />
       <Label fx:id="mColonLbl1" layoutX="51.0" layoutY="89.0" text=":" />
       <Label fx:id="mColonLbl2" layoutX="100.0" layoutY="89.0" text=":" />
-      <Button fx:id="mOkBtn" layoutX="148.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Ok" />
-      <Button fx:id="mCancelBtn" layoutX="82.0" layoutY="132.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="mOkBtn" layoutX="90.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Ok" />
+      <Button fx:id="mCancelBtn" layoutX="148.0" layoutY="132.0" mnemonicParsing="false" text="Cancel" />
    </children>
 </AnchorPane>
