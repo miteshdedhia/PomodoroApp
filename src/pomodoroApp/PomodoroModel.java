@@ -1,13 +1,10 @@
 package pomodoroApp;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class PomodoroModel {
 
@@ -21,24 +18,25 @@ public class PomodoroModel {
         return mTaskList;
     }
 
-    public void addTask(String name, Duration time){
-        mTaskList.add(new PomodoroTask(name, time));
+    public void addTask(PomodoroTask task){
+        mTaskList.add(task);
+        mTaskList.add(PomodoroTask.CreateBreakTask());
     }
 
     public void removeTask(int index){
         mTaskList.remove(index);
     }
 
-    public void editTask(String name, Duration time, int index){
+    public void editTask(int index, PomodoroTask editedTask){
         PomodoroTask task = mTaskList.get(index);
-        task.setmTaskName(name);
-        task.setmTime(time);
+        task.setmTaskName(editedTask.getmTaskName());
+        task.setmTime(editedTask.getmTime());
     }
 
     public void testList(){
-        addTask("Test1", Duration.ofMinutes(25));
-        addTask("Test2", Duration.ofMinutes(30));
-        addTask("Test3", Duration.ofMinutes(45));
-        addTask("Test4", Duration.ofMinutes(60));
+        addTask(new PomodoroTask("Test1", Duration.ofMinutes(25)));
+        addTask(new PomodoroTask("Test2", Duration.ofMinutes(30)));
+        addTask(new PomodoroTask("Test3", Duration.ofMinutes(45)));
+        addTask(new PomodoroTask("Test4", Duration.ofMinutes(60)));
     }
 }

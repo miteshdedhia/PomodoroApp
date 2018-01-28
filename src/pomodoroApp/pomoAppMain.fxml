@@ -34,7 +34,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <TableView fx:id="mTaskTblView" editable="true">
+      <TableView fx:id="mTaskTblView" editable="true" onMouseClicked="#edit_OnMouseClicked">
          <columns>
             <TableColumn fx:id="mTaskCol" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" resizable="false" sortable="false" text="Task" />
             <TableColumn fx:id="mTimeCol" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Time" />
