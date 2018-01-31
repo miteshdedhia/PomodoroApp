@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pomodoroApp.model.PomodoroTask;
+import pomodoroApp.util.PomodoroUtil;
 
 
 public class TaskEditController {
@@ -149,6 +151,5 @@ public class TaskEditController {
             return false;
         }
     }
-
 
 }

@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.util;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;

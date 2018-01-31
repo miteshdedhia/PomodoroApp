@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.model;
 
 import javafx.beans.property.SimpleStringProperty;
 
@@ -8,7 +8,7 @@ public class PomodoroTask {
 
     private static final String DEFAULT_TASK_NAME = "Your Task";
     private static final int DEFAULT_TASK_DURATION = 25;
-    private static final String BREAK_TASK_NAME = "BREAK";
+    private static final String BREAK_TASK_NAME = "Break";
     private static final int BREAK_TASK_TIME = 5;
 
     private Duration mTime;

@@ -4,19 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class Main extends Application {
+public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("pomoAppMain.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/pomoAppMain.fxml"));
         primaryStage.setTitle("Pomodoro Timer");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("file:resources/images/PomodoroIcon.png"));
         primaryStage.show();
     }
 

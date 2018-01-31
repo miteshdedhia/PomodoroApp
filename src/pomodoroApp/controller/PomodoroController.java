@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.controller;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pomodoroApp.*;
+import pomodoroApp.model.PomodoroModel;
+import pomodoroApp.model.PomodoroTask;
+import pomodoroApp.model.PomodoroTimer;
+import pomodoroApp.util.PomodoroUtil;
 
 import java.io.IOException;
 
@@ -62,6 +67,7 @@ public class PomodoroController {
         else if(selectedTask != null) {
             mTimer.setTime(selectedTask.getmTime());
             setButtonStatesOnStart();
+            mTaskLbl.setText(selectedTask.getmTaskName());
             mTimer.start();
             selectedIndexOnStart = currentSelectedIndex;
         }
@@ -80,8 +86,8 @@ public class PomodoroController {
     private void reset_OnAction(){
         PomodoroTask selectedTask = mTaskTblView.getSelectionModel().getSelectedItem();
         if(selectedTask != null) {
-            //setButtonStateOnPause();
             mTimer.reset(selectedTask.getmTime());
+            mTaskLbl.setText(selectedTask.getmTaskName());
             mStartBtn.setDisable(false);
         }
         else {
@@ -165,7 +171,7 @@ public class PomodoroController {
 
     public PomodoroTask showTaskEditDialog(PomodoroTask task) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("taskEdit.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/taskEdit.fxml"));
             Parent root = loader.load();
             TaskEditController controller = loader.getController();
 

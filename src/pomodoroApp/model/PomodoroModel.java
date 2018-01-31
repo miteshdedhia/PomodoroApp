@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

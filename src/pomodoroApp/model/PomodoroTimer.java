@@ -1,4 +1,4 @@
-package pomodoroApp;
+package pomodoroApp.model;
 
 
 import javafx.animation.KeyFrame;
@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import pomodoroApp.util.PomodoroUtil;
 
 import java.time.Duration;
 
