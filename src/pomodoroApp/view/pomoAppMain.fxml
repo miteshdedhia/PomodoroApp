@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="appVbox" fx:id="mAppVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="510.0" spacing="5.0" stylesheets="@pomoAppMain.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.PomodoroController">
+<VBox id="appVbox" fx:id="mAppVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="510.0" spacing="3.0" stylesheets="@pomoAppMain.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.PomodoroController">
    <children>
-      <Label id="timerLbl" fx:id="mTimerLbl" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" text="00:00:00" textAlignment="CENTER">
+      <Label id="timerLbl" fx:id="mTimerLbl" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" text="00:00:00" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="48.0" />
          </font>
       </Label>
-      <Label id="taskLbl" fx:id="mTaskLbl" alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" text="Task" textAlignment="CENTER">
+      <Label id="taskLbl" fx:id="mTaskLbl" alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" text="Task" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -24,7 +24,7 @@
             <Insets bottom="5.0" />
          </padding>
       </Label>
-      <HBox id="timerHbox" fx:id="mtimerHbox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="15.0">
+      <HBox id="timerHbox" fx:id="mtimerHbox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" spacing="15.0">
          <children>
             <Button id="startBtn" fx:id="mStartBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#start_OnAction" text="Start" />
             <Button id="pauseBtn" fx:id="mPauseBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#pause_OnAction" text="Pause" />
@@ -33,20 +33,32 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
       </HBox>
       <TableView fx:id="mTaskTblView" editable="true" onMouseClicked="#edit_OnMouseClicked">
          <columns>
             <TableColumn fx:id="mTaskCol" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" resizable="false" sortable="false" text="Task" />
             <TableColumn fx:id="mTimeCol" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Time" />
          </columns></TableView>
-      <HBox id="taskHbox" fx:id="mTaskHbox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="5.0">
+      <HBox id="taskHbox" fx:id="mTaskHbox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="504.0" spacing="5.0">
          <children>
             <Button id="addBtn" fx:id="mAddBtn" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#add_OnAction" text="+" />
             <Button id="delBtn" fx:id="mDelBtn" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#delete_OnAction" text="-" />
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </padding>
       </HBox>
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
    </padding>
 </VBox>
