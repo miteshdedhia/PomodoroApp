@@ -1,0 +1,66 @@
+@import "common.css";
+
+/* Table view settings */
+.table-view {
+    -fx-base: -fx-base1;
+    -fx-control-inner-background: -fx-base1;
+    -fx-background-color: -fx-base1;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-selection-bar-non-focused: -fx-accent;
+}
+
+.table-view .column-header-background , .table-view .column-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-size: 25;
+    -fx-border-width: 1;
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-accent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: -fx-accent;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-row-cell .text{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+    -fx-fill: -fx-accent;
+}
+
+.table-row-cell:selected .text {
+    -fx-background-color: -fx-accent;
+    -fx-fill: -fx-base1;
+}
+
+
+/* Per node custom settings */
+#appVbox{
+    -fx-background-color: -fx-base0;
+}
+
+#timerLbl {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 44pt;
+}
+
+#taskLbl {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16pt;
+}
+
+#timerHbox {
+    -fx-background-color: -fx-base1;
+}
+
+#taskHbox{
+    -fx-background-color: -fx-base1;
+}

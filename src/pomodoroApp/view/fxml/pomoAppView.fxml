@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="appVbox" fx:id="mAppVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="510.0" spacing="3.0" stylesheets="@pomoAppMain.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.PomodoroController">
+<VBox id="appVbox" fx:id="mAppVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="510.0" spacing="3.0" stylesheets="@../css/pomoAppView.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.PomodoroController">
    <children>
       <Label id="timerLbl" fx:id="mTimerLbl" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" text="00:00:00" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="48.0" />
          </font>
       </Label>
-      <Label id="taskLbl" fx:id="mTaskLbl" alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" text="Task" textAlignment="CENTER">
+      <Label id="taskLbl" fx:id="mTaskLbl" alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="504.0" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -40,7 +40,7 @@
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView fx:id="mTaskTblView" editable="true" onMouseClicked="#edit_OnMouseClicked">
+      <TableView fx:id="mTaskTblView" editable="true">
          <columns>
             <TableColumn fx:id="mTaskCol" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" resizable="false" sortable="false" text="Task" />
             <TableColumn fx:id="mTimeCol" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Time" />

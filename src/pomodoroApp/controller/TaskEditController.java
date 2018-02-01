@@ -12,6 +12,8 @@ import pomodoroApp.util.PomodoroUtil;
 
 public class TaskEditController {
 
+    private static final Integer MAX_TIME_FIELD = 59;
+
     @FXML
     private TextField mTaskNameTextBox;
 
@@ -31,41 +33,16 @@ public class TaskEditController {
     @FXML
     private void initialize() {
         mOkClicked = false;
-        mTimeHrTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    mTimeHrTxtBox.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
-        mTimeMinTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    mTimeMinTxtBox.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
-        mTimeSecTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    mTimeSecTxtBox.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        setupTextFields();
     }
 
     @FXML
     private void ok_OnAction() {
         if (isInputValid()) {
-            mTask.setmTaskName(mTaskNameTextBox.getText());
+            mTask.setTaskName(mTaskNameTextBox.getText());
             String timeString = String.format("%s:%s:%s",
                     mTimeHrTxtBox.getText(), mTimeMinTxtBox.getText(), mTimeSecTxtBox.getText());
-            mTask.setmTime(PomodoroUtil.ConvertTimeStringToDuration(timeString));
+            mTask.setTime(PomodoroUtil.ConvertTimeStringToDuration(timeString));
             mOkClicked = true;
             mDialogStage.close();
         }
@@ -92,8 +69,8 @@ public class TaskEditController {
     public void setTask(PomodoroTask task) {
         this.mTask = task;
 
-        mTaskNameTextBox.setText(task.getmTaskName());
-        String timeString = PomodoroUtil.ConvertDurationToTimeString(task.getmTime());
+        mTaskNameTextBox.setText(task.getTaskName());
+        String timeString = PomodoroUtil.ConvertDurationToTimeString(task.getTime());
         String timeSplit[] = timeString.split(":");
         mTimeHrTxtBox.setText(timeSplit[0].trim());
         mTimeMinTxtBox.setText(timeSplit[1].trim());
@@ -152,4 +129,63 @@ public class TaskEditController {
         }
     }
 
+    private void setupTextFields() {
+        mTaskNameTextBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.length() > 25){
+                    mTaskNameTextBox.setText(oldValue);
+                }
+            }
+        });
+
+        mTimeHrTxtBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                validateInput(mTimeHrTxtBox, oldValue, newValue);
+            }
+        });
+
+        mTimeMinTxtBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(validateInput(mTimeMinTxtBox, oldValue, newValue)){
+                    validateTimeValue(mTimeMinTxtBox, newValue);
+                }
+            }
+        });
+
+        mTimeSecTxtBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(validateInput(mTimeSecTxtBox, oldValue, newValue)){
+                    validateTimeValue(mTimeSecTxtBox, newValue);
+                }
+            }
+        });
+    }
+
+    private static void validateTimeValue(TextField txtField,String newValue) {
+        try
+        {
+            if(Integer.parseInt(newValue) > MAX_TIME_FIELD){
+                txtField.setText(MAX_TIME_FIELD.toString());
+            }
+        }
+        catch (NumberFormatException e){
+        }
+    }
+
+    private static boolean validateInput(TextField txtField, String oldValue, String newValue) {
+        boolean error = true;
+        if (!newValue.matches("\\d*")) {
+            txtField.setText(newValue.replaceAll("[^\\d]", ""));
+            error = false;
+        }
+        if(newValue.length() > 2){
+            txtField.setText(oldValue);
+            error = false;
+        }
+        return error;
+    }
 }

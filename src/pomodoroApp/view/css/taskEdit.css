@@ -1,0 +1,15 @@
+@import "common.css";
+
+#anchPaneBox{
+    -fx-background-color: -fx-base1;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: -fx-base1;
+    -fx-text-fill: -fx-accent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: -fx-accent;
+    -fx-prompt-text-fill: -fx-accent;
+}

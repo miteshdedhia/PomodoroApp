@@ -16,6 +16,7 @@ import pomodoroApp.model.PomodoroTimer;
 import pomodoroApp.util.PomodoroUtil;
 
 import java.io.IOException;
+import java.time.Duration;
 
 public class PomodoroController {
 
@@ -37,7 +38,6 @@ public class PomodoroController {
     private PomodoroTimer mTimer;
 
     private TableView.TableViewSelectionModel<PomodoroTask> mdefaultSelectionModel;
-    private int selectedIndexOnStart;
 
     public PomodoroController(){
         mTimer = new PomodoroTimer();
@@ -50,26 +50,21 @@ public class PomodoroController {
         mTimer.setOnTimerFinshed(event -> onTimerFinished());
         mTimerLbl.textProperty().bind(mTimer.getCurrentTime());
         mPauseBtn.setDisable(true);
-        //mModel.testList();
-        mdefaultSelectionModel = mTaskTblView.getSelectionModel();
+
     }
 
     @FXML
     private void start_OnAction() {
         TableView.TableViewSelectionModel<PomodoroTask> selectionModel = mTaskTblView.getSelectionModel();
         PomodoroTask selectedTask = selectionModel.getSelectedItem();
-        int currentSelectedIndex = selectionModel.getSelectedIndex();
-
-        if(mTimer.isPaused() && currentSelectedIndex == selectedIndexOnStart){
+        if(mTimer.isPaused()){
             setButtonStatesOnStart();
             mTimer.start();
         }
         else if(selectedTask != null) {
-            mTimer.setTime(selectedTask.getmTime());
+            setViewWithTask(selectedTask);
             setButtonStatesOnStart();
-            mTaskLbl.setText(selectedTask.getmTaskName());
             mTimer.start();
-            selectedIndexOnStart = currentSelectedIndex;
         }
         else {
             showNoSelectionWarning();
@@ -86,8 +81,8 @@ public class PomodoroController {
     private void reset_OnAction(){
         PomodoroTask selectedTask = mTaskTblView.getSelectionModel().getSelectedItem();
         if(selectedTask != null) {
-            mTimer.reset(selectedTask.getmTime());
-            mTaskLbl.setText(selectedTask.getmTaskName());
+            mTimer.reset(selectedTask.getTime());
+            mTaskLbl.setText(selectedTask.getTaskName());
             mStartBtn.setDisable(false);
         }
         else {
@@ -100,13 +95,15 @@ public class PomodoroController {
         PomodoroTask newTask = showTaskEditDialog(PomodoroTask.CreateDefaultTask());
         if(newTask != null){
             mModel.addTask(newTask);
+            if(mModel.getTaskCount() == 2)
+                mTaskTblView.getSelectionModel().selectFirst();
         }
     }
 
     @FXML
-    private void edit_OnMouseClicked(MouseEvent mouseEvent) {
+    private void edit_OnMouseClicked() {
         TableView.TableViewSelectionModel<PomodoroTask> selectionModel = mTaskTblView.getSelectionModel();
-        if(mouseEvent.getClickCount() > 1 && selectionModel != null) {
+        if(selectionModel != null) {
             PomodoroTask selectedTask = selectionModel.getSelectedItem();
             int index = mTaskTblView.getSelectionModel().getSelectedIndex();
             if (selectedTask != null && index >= 0) {
@@ -164,14 +161,33 @@ public class PomodoroController {
     }
 
     private void setupTableView(){
-        mTaskTblView.setItems(mModel.getmTaskList());
+        mTaskTblView.setItems(mModel.getTaskList());
         mTaskCol.setCellValueFactory(taskData -> taskData.getValue().mTaskNameProperty());
-        mTimeCol.setCellValueFactory(taskData -> new SimpleStringProperty(PomodoroUtil.ConvertDurationToTimeString(taskData.getValue().getmTime())));
+        mTimeCol.setCellValueFactory(taskData -> new SimpleStringProperty(
+                PomodoroUtil.ConvertDurationToTimeString(taskData.getValue().getTime())));
+        mdefaultSelectionModel = mTaskTblView.getSelectionModel();
+        mdefaultSelectionModel.selectedItemProperty().addListener(
+                (obs, oldSelection, newSelection) -> {
+                    if(newSelection != null)
+                        setViewWithTask(newSelection);
+                    else
+                        resetView();
+                });
+
+        mTaskTblView.setRowFactory(tv -> {
+            TableRow<PomodoroTask> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    edit_OnMouseClicked();
+                }
+            });
+            return row ;
+        });
     }
 
     public PomodoroTask showTaskEditDialog(PomodoroTask task) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/taskEdit.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/fxml/taskEditView.fxml"));
             Parent root = loader.load();
             TaskEditController controller = loader.getController();
 
@@ -209,5 +225,15 @@ public class PomodoroController {
         mAddBtn.setDisable(false);
         mDelBtn.setDisable(false);
         mTaskTblView.setSelectionModel(mdefaultSelectionModel);
+    }
+
+    private void setViewWithTask(PomodoroTask selectedTask){
+        mTimer.setTime(selectedTask.getTime());
+        mTaskLbl.setText(selectedTask.getTaskName());
+    }
+
+    private void resetView(){
+        mTimer.setTime(Duration.ofSeconds(0));
+        mTaskLbl.setText("");
     }
 }
