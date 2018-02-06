@@ -20,6 +20,8 @@ import java.time.Duration;
 
 public class PomodoroController {
 
+    public static final String MAIN_VIEW_CSS_PATH_CONTROLLER_REL = "../view/css/pomoAppView.css";
+
     @FXML private TableView<PomodoroTask> mTaskTblView;
     @FXML private TableColumn<PomodoroTask, String> mTaskCol;
     @FXML private TableColumn<PomodoroTask, String> mTimeCol;
@@ -37,8 +39,6 @@ public class PomodoroController {
     private PomodoroModel mModel;
     private PomodoroTimer mTimer;
 
-    private TableView.TableViewSelectionModel<PomodoroTask> mdefaultSelectionModel;
-
     public PomodoroController(){
         mTimer = new PomodoroTimer();
         mModel = new PomodoroModel();
@@ -50,19 +50,14 @@ public class PomodoroController {
         mTimer.setOnTimerFinshed(event -> onTimerFinished());
         mTimerLbl.textProperty().bind(mTimer.getCurrentTime());
         mPauseBtn.setDisable(true);
-
     }
 
     @FXML
     private void start_OnAction() {
-        TableView.TableViewSelectionModel<PomodoroTask> selectionModel = mTaskTblView.getSelectionModel();
-        PomodoroTask selectedTask = selectionModel.getSelectedItem();
-        if(mTimer.isPaused()){
-            setButtonStatesOnStart();
-            mTimer.start();
-        }
-        else if(selectedTask != null) {
-            setViewWithTask(selectedTask);
+        PomodoroTask selectedTask = mTaskTblView.getSelectionModel().getSelectedItem();
+        if(selectedTask != null) {
+            if(!mTimer.isPaused())
+                setViewWithTask(selectedTask);
             setButtonStatesOnStart();
             mTimer.start();
         }
@@ -134,6 +129,8 @@ public class PomodoroController {
         alert.setTitle("No Selection");
         alert.setHeaderText("No task selected");
         alert.setContentText("Please select a task in the table.");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
         alert.showAndWait();
     }
 
@@ -143,6 +140,8 @@ public class PomodoroController {
         alert.setTitle("Next Task");
         alert.setHeaderText("Start next task");
         alert.setContentText("Do you want to start the next task?");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
         alert.showAndWait().ifPresent(response ->{
             if(response == ButtonType.OK){
                 mTaskTblView.getSelectionModel().selectNext();
@@ -156,7 +155,7 @@ public class PomodoroController {
 
     private void onTimerFinished(){
         //TODO on timer done setup next task and or play music
-        mTaskTblView.setSelectionModel(mdefaultSelectionModel);
+        //TODO color the selected row as green.
         Platform.runLater(() -> showStartNextTaskDialog());
     }
 
@@ -165,8 +164,8 @@ public class PomodoroController {
         mTaskCol.setCellValueFactory(taskData -> taskData.getValue().mTaskNameProperty());
         mTimeCol.setCellValueFactory(taskData -> new SimpleStringProperty(
                 PomodoroUtil.ConvertDurationToTimeString(taskData.getValue().getTime())));
-        mdefaultSelectionModel = mTaskTblView.getSelectionModel();
-        mdefaultSelectionModel.selectedItemProperty().addListener(
+
+        mTaskTblView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> {
                     if(newSelection != null)
                         setViewWithTask(newSelection);
@@ -215,7 +214,7 @@ public class PomodoroController {
         mPauseBtn.setDisable(false);
         mAddBtn.setDisable(true);
         mDelBtn.setDisable(true);
-        mTaskTblView.setSelectionModel(null);
+        mTaskTblView.setDisable(true);
     }
 
     private void setButtonStateOnPause() {
@@ -224,7 +223,7 @@ public class PomodoroController {
         mStartBtn.setDisable(false);
         mAddBtn.setDisable(false);
         mDelBtn.setDisable(false);
-        mTaskTblView.setSelectionModel(mdefaultSelectionModel);
+        mTaskTblView.setDisable(false);
     }
 
     private void setViewWithTask(PomodoroTask selectedTask){
