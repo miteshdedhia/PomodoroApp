@@ -56,3 +56,25 @@
     -fx-text-fill: -fx-accent;
     -fx-opacity: 1;
 }
+
+.dialog-pane .header-panel {
+    -fx-background-color: -fx-base0;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-background-color: -fx-base0;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14pt;
+}
+
+.dialog-pane {
+    -fx-background-color: -fx-base1;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: -fx-accent;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 10pt;
+    -fx-padding: 10px;
+}
+

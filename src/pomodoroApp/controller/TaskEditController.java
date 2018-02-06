@@ -4,10 +4,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pomodoroApp.model.PomodoroTask;
 import pomodoroApp.util.PomodoroUtil;
+
+import static pomodoroApp.controller.PomodoroController.MAIN_VIEW_CSS_PATH_CONTROLLER_REL;
 
 
 public class TaskEditController {
@@ -87,30 +90,13 @@ public class TaskEditController {
 
         if(taskName.length() == 0)
             errorMessage.append("Task name cannot be empty.\n");
-        else if(taskName.length() > 100)
-            errorMessage.append("Task name too long. Max limit: 100 characters.\n");
 
-        try {
-            Integer.parseInt(hr);
+        try{
+            if(Integer.parseInt(hr) <= 0 && Integer.parseInt(min) <= 0 && Integer.parseInt(sec) <= 0)
+                errorMessage.append("Time limit for the task cannot not be zero\n");
         }
         catch (NumberFormatException e){
-            errorMessage.append("Hour should be a number.\n");
-        }
-
-        try {
-            if(Integer.parseInt(min) > 59)
-                errorMessage.append("Minutes cannot be more than 59.");
-        }
-        catch (NumberFormatException e){
-            errorMessage.append("Minute should be a number.\n");
-        }
-
-        try {
-            if(Integer.parseInt(sec) > 59)
-                errorMessage.append("Seconds cannot be more than 59.");
-        }
-        catch (NumberFormatException e){
-            errorMessage.append("Seconds should be a number.\n");
+            errorMessage.append("Please enter a time limit for the task\n");
         }
 
         if (errorMessage.length() == 0) {
@@ -122,7 +108,8 @@ public class TaskEditController {
             alert.setTitle("Invalid Fields");
             alert.setHeaderText("Please correct invalid fields");
             alert.setContentText(errorMessage.toString());
-
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
             alert.showAndWait();
 
             return false;
@@ -165,10 +152,11 @@ public class TaskEditController {
         });
     }
 
-    private static void validateTimeValue(TextField txtField,String newValue) {
+    private static void validateTimeValue(TextField txtField, String newValue) {
         try
         {
-            if(Integer.parseInt(newValue) > MAX_TIME_FIELD){
+            int currentValue = Integer.parseInt(newValue);
+            if(currentValue > MAX_TIME_FIELD){
                 txtField.setText(MAX_TIME_FIELD.toString());
             }
         }
