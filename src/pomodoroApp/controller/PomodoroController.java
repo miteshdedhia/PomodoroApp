@@ -2,19 +2,22 @@ package pomodoroApp.controller;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import pomodoroApp.*;
 import pomodoroApp.model.PomodoroModel;
 import pomodoroApp.model.PomodoroTask;
 import pomodoroApp.model.PomodoroTimer;
 import pomodoroApp.util.PomodoroUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
@@ -36,8 +39,8 @@ public class PomodoroController {
     @FXML private Button mAddBtn;
     @FXML private Button mDelBtn;
 
-    private PomodoroModel mModel;
-    private PomodoroTimer mTimer;
+    final private PomodoroModel mModel;
+    final private PomodoroTimer mTimer;
 
     public PomodoroController(){
         mTimer = new PomodoroTimer();
@@ -106,6 +109,7 @@ public class PomodoroController {
                 if (editedTask != null) {
                     mModel.editTask(index, editedTask);
                     mTaskTblView.refresh();
+                    setViewWithTask(editedTask);
                 }
             }
         }
@@ -154,9 +158,10 @@ public class PomodoroController {
     }
 
     private void onTimerFinished(){
-        //TODO on timer done setup next task and or play music
-        //TODO color the selected row as green.
-        Platform.runLater(() -> showStartNextTaskDialog());
+        Media sound = new Media(new File("resources/sound.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+        Platform.runLater(this::showStartNextTaskDialog);
     }
 
     private void setupTableView(){
@@ -184,12 +189,11 @@ public class PomodoroController {
         });
     }
 
-    public PomodoroTask showTaskEditDialog(PomodoroTask task) {
+    private PomodoroTask showTaskEditDialog(PomodoroTask task) {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/fxml/taskEditView.fxml"));
             Parent root = loader.load();
             TaskEditController controller = loader.getController();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Task");
             dialogStage.initModality(Modality.WINDOW_MODAL);

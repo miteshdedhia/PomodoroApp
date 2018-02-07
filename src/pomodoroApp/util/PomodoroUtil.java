@@ -11,17 +11,22 @@ public class PomodoroUtil {
         String[] parts = time.split ( ":" );
         Duration d = Duration.ZERO;
 
-        if ( parts.length == 3 ) {
-            int hours = Integer.parseInt(parts[0]);
-            minutes = Integer.parseInt(parts[1]);
-            seconds = Integer.parseInt(parts[2]);
-            d = d.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
-        } else if ( parts.length == 2 ) {
-            minutes = Integer.parseInt(parts[0]);
-            seconds = Integer.parseInt(parts[1]);
-            d = d.plusMinutes(minutes).plusSeconds(seconds);
-        } else {
-            System.out.println ( "ERROR - Unexpected input." );
+        switch (parts.length){
+            case 3:
+                int hours = Integer.parseInt(parts[0]);
+                minutes = Integer.parseInt(parts[1]);
+                seconds = Integer.parseInt(parts[2]);
+                d = d.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+                break;
+
+            case 2:
+                minutes = Integer.parseInt(parts[0]);
+                seconds = Integer.parseInt(parts[1]);
+                d = d.plusMinutes(minutes).plusSeconds(seconds);
+                break;
+
+            default:
+                System.out.println ( "ERROR - Unexpected input." );
         }
         return d;
     }

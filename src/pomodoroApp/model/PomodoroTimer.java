@@ -12,9 +12,9 @@ import java.time.Duration;
 
 public class PomodoroTimer {
 
-    private Timeline mTimer;
+    final private Timeline mTimer;
+    final private SimpleStringProperty mCurrentTime;
     private Duration mDuration;
-    private SimpleStringProperty mCurrentTime;
 
     private boolean mPaused;
 

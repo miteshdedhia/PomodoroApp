@@ -14,24 +14,18 @@ public class PomodoroTask {
     private static final int LONG_BREAK_TASK_TIME = 15;
 
     private Duration mTime;
-    private SimpleStringProperty mTaskName;
-    private boolean mIsBreakTask;
+    final private SimpleStringProperty mTaskName;
+    final private boolean mIsBreakTask;
 
-    public PomodoroTask(String taskName, Duration time)
+    private PomodoroTask(String taskName, Duration time, boolean isBreak)
     {
         mTaskName = new SimpleStringProperty(taskName);
         mTime = time;
-    }
-
-    private PomodoroTask(String taskName, Duration time, boolean isBreakTask)
-    {
-        mTaskName = new SimpleStringProperty(taskName);
-        mTime = time;
-        mIsBreakTask = isBreakTask;
+        mIsBreakTask = isBreak;
     }
 
     public static PomodoroTask CreateDefaultTask(){
-        return new PomodoroTask(DEFAULT_TASK_NAME, Duration.ofMinutes(DEFAULT_TASK_DURATION));
+        return new PomodoroTask(DEFAULT_TASK_NAME, Duration.ofMinutes(DEFAULT_TASK_DURATION), false);
     }
 
     public static PomodoroTask CreateShortBreakTask(){

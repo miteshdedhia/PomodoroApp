@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class PomodoroModel {
 
-    private ObservableList<PomodoroTask> mTaskList;
+    final private ObservableList<PomodoroTask> mTaskList;
     private Duration mTotalDuration;
 
     public PomodoroModel(){
@@ -28,7 +28,7 @@ public class PomodoroModel {
         }
         else {
             mTaskList.add(PomodoroTask.CreateLongBreakTask());
-            mTotalDuration = mTotalDuration.ofSeconds(0);
+            mTotalDuration = Duration.ofSeconds(0);
         }
     }
 
@@ -63,12 +63,5 @@ public class PomodoroModel {
     }
     public int getTaskCount(){
         return mTaskList.size();
-    }
-
-    public void testList(){
-        addTask(new PomodoroTask("Test1", Duration.ofMinutes(25)));
-        addTask(new PomodoroTask("Test2", Duration.ofMinutes(30)));
-        addTask(new PomodoroTask("Test3", Duration.ofMinutes(45)));
-        addTask(new PomodoroTask("Test4", Duration.ofMinutes(60)));
     }
 }

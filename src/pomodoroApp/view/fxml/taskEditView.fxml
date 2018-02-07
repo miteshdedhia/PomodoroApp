@@ -5,15 +5,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="anchPaneBox" fx:id="mContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="265.0" stylesheets="@../css/taskEdit.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.TaskEditController">
+<AnchorPane id="anchPaneBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="265.0" stylesheets="@../css/taskEdit.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodoroApp.controller.TaskEditController">
    <children>
       <TextField fx:id="mTaskNameTextBox" layoutX="10.0" layoutY="12.0" prefHeight="40.0" prefWidth="206.0" promptText="Task Name" />
       <TextField fx:id="mTimeHrTxtBox" alignment="CENTER" layoutX="10.0" layoutY="70.0" prefHeight="40.0" prefWidth="45.0" promptText="Hr" />
       <TextField fx:id="mTimeMinTxtBox" alignment="CENTER" layoutX="70.0" layoutY="70.0" prefHeight="40.0" prefWidth="45.0" promptText="Min" />
       <TextField fx:id="mTimeSecTxtBox" alignment="CENTER" layoutX="125.0" layoutY="70.0" prefHeight="40.0" prefWidth="45.0" promptText="Sec" />
-      <Label fx:id="mColonLbl1" layoutX="60.0" layoutY="75.0" text=":" />
-      <Label fx:id="mColonLbl2" layoutX="115.0" layoutY="75.0" text=":" />
-      <Button fx:id="mOkBtn" defaultButton="true" layoutX="66.0" layoutY="138.0" mnemonicParsing="false" onAction="#ok_OnAction" prefHeight="33.0" prefWidth="91.0" text="Ok" />
-      <Button fx:id="mCancelBtn" cancelButton="true" layoutX="168.0" layoutY="138.0" mnemonicParsing="false" onAction="#cancel_OnAction" prefWidth="91.0" text="Cancel" />
+      <Label layoutX="60.0" layoutY="75.0" text=":" />
+      <Label layoutX="115.0" layoutY="75.0" text=":" />
+      <Button defaultButton="true" layoutX="66.0" layoutY="138.0" mnemonicParsing="false" onAction="#ok_OnAction" prefHeight="33.0" prefWidth="91.0" text="Ok" />
+      <Button cancelButton="true" layoutX="168.0" layoutY="138.0" mnemonicParsing="false" onAction="#cancel_OnAction" prefWidth="91.0" text="Cancel" />
    </children>
 </AnchorPane>

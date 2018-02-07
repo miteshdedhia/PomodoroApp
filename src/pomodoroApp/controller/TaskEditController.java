@@ -1,7 +1,5 @@
 package pomodoroApp.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
@@ -117,38 +115,25 @@ public class TaskEditController {
     }
 
     private void setupTextFields() {
-        mTaskNameTextBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        mTaskNameTextBox.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue.length() > 25){
                     mTaskNameTextBox.setText(oldValue);
                 }
-            }
         });
 
-        mTimeHrTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                validateInput(mTimeHrTxtBox, oldValue, newValue);
-            }
-        });
+        mTimeHrTxtBox.textProperty().addListener((observable, oldValue, newValue) ->
+                validateInput(mTimeHrTxtBox, oldValue, newValue));
 
-        mTimeMinTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        mTimeMinTxtBox.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(validateInput(mTimeMinTxtBox, oldValue, newValue)){
                     validateTimeValue(mTimeMinTxtBox, newValue);
                 }
-            }
         });
 
-        mTimeSecTxtBox.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        mTimeSecTxtBox.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(validateInput(mTimeSecTxtBox, oldValue, newValue)){
                     validateTimeValue(mTimeSecTxtBox, newValue);
                 }
-            }
         });
     }
 
