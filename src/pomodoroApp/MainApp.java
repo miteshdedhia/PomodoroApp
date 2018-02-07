@@ -15,7 +15,7 @@ public class MainApp extends Application {
         primaryStage.setTitle("Pomodoro Timer");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("file:resources/images/PomodoroIcon.png"));
+        primaryStage.getIcons().add(new Image(getClass().getResource("res/images/PomodoroIcon.png").toExternalForm()));
         primaryStage.show();
     }
 

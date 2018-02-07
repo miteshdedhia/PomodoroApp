@@ -23,7 +23,7 @@ import java.time.Duration;
 
 public class PomodoroController {
 
-    public static final String MAIN_VIEW_CSS_PATH_CONTROLLER_REL = "../view/css/pomoAppView.css";
+    public static final String MAIN_VIEW_CSS_PATH_CONTROLLER_REL = "view/css/pomoAppView.css";
 
     @FXML private TableView<PomodoroTask> mTaskTblView;
     @FXML private TableColumn<PomodoroTask, String> mTaskCol;
@@ -134,7 +134,7 @@ public class PomodoroController {
         alert.setHeaderText("No task selected");
         alert.setContentText("Please select a task in the table.");
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
+        dialogPane.getStylesheets().add(MainApp.class.getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
         alert.showAndWait();
     }
 
@@ -145,7 +145,7 @@ public class PomodoroController {
         alert.setHeaderText("Start next task");
         alert.setContentText("Do you want to start the next task?");
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
+        dialogPane.getStylesheets().add(MainApp.class.getResource(MAIN_VIEW_CSS_PATH_CONTROLLER_REL).toExternalForm());
         alert.showAndWait().ifPresent(response ->{
             if(response == ButtonType.OK){
                 mTaskTblView.getSelectionModel().selectNext();
@@ -158,7 +158,7 @@ public class PomodoroController {
     }
 
     private void onTimerFinished(){
-        Media sound = new Media(new File("resources/sound.mp3").toURI().toString());
+        Media sound = new Media(MainApp.class.getResource("res/sound.mp3").toExternalForm());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
         Platform.runLater(this::showStartNextTaskDialog);
